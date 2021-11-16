@@ -1,8 +1,9 @@
 package com.im.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.im.core.net.ApiMessage;
 import com.im.core.exception.BizException;
+import com.im.core.net.ApiMessage;
+import com.im.web.OriginResponse;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.core.MethodParameter;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 
 /**
@@ -54,7 +56,7 @@ public class RestControllerAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType,
                             Class<? extends HttpMessageConverter<?>> converterType) {
-        return filter();
+        return filter(returnType);
     }
 
     @SneakyThrows
@@ -76,10 +78,19 @@ public class RestControllerAdvice implements ResponseBodyAdvice<Object> {
         return body instanceof String ? objectMapper.writeValueAsString(message) : message;
     }
 
-    public boolean filter(){
+    public boolean filter(MethodParameter returnType) {
+        Class<?> declaringClass = returnType.getDeclaringClass();
+        Method method = returnType.getMethod();
+        if (method == null) {
+            return false;
+        }
+        if (declaringClass.isAnnotationPresent(OriginResponse.class)) {
+            return false;
+        }
+        if (method.isAnnotationPresent(OriginResponse.class)) {
+            return false;
+        }
         return properties.enabled;
     }
-
-
 
 }

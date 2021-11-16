@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class KeycloakController {
 
-    @GetMapping("test")
-    public String test() {
-        return "test";
+    @GetMapping("keycloak")
+    public String keycloak() {
+        return "keycloak";
     }
 
 }
