@@ -11,6 +11,7 @@
         <module>lab-dependencies</module>
         <module>lab-data</module>
         <module>lab-mq</module>
+        <module>lab-snowflake</module>
     </modules>
 
     <parent>

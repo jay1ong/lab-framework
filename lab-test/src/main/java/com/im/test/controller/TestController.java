@@ -1,7 +1,14 @@
 package com.im.test.controller;
 
+import cn.hutool.core.convert.Convert;
+import com.im.core.validate.ValidationUtil;
+import com.im.test.model.UserValidatorModel;
 import com.im.web.OriginResponse;
+//import com.sankuai.inf.leaf.service.SnowflakeService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -11,7 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @OriginResponse
+@Slf4j
+@AllArgsConstructor
 public class TestController {
+
+//    private final SnowflakeService snowflakeService;
 
 
     @GetMapping("test")
@@ -23,5 +34,21 @@ public class TestController {
     public String test1() {
         return "test1";
     }
+
+    @GetMapping("validate")
+    public boolean validate(@RequestParam String username, @RequestParam String password) {
+        UserValidatorModel model = UserValidatorModel
+                .builder()
+                .username(username)
+                .password(password)
+                .build();
+        ValidationUtil.validate(model);
+        return true;
+    }
+
+//    @GetMapping("/leaf/id")
+//    public String leafId() {
+//        return Convert.toStr(snowflakeService.getId("id").getId());
+//    }
 
 }

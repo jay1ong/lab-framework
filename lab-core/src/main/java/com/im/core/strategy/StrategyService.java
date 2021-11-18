@@ -12,6 +12,8 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,23 +21,34 @@ import java.util.Optional;
  * Date: 2021/11/12
  */
 @Service
-@AllArgsConstructor
-public class StrategyService<I extends IStrategy<T>, T> {
+public class StrategyService {
 
-    private final ApplicationContext context;
+    private final Map<String, Object> map;
+
+    public StrategyService(ApplicationContext context) {
+        this.map = context.getBeansWithAnnotation(Strategy.class);
+    }
 
     @SneakyThrows
-    public I getStrategy(T param) {
-        Class<?> clazz = Class.forName("org.example.strategy.IStrategy");
-        Map<String, Object> map = context.getBeansWithAnnotation(Strategy.class);
-        for (Object o : map.values()) {
-            Method[] methods = ReflectUtil.getMethods(o.getClass());
-            Optional<Method> optionalMethod = Arrays.stream(methods).filter(it -> clazz.getMethods()[0].getName().equals(it.getName())).findFirst();
-            if (optionalMethod.isPresent()) {
-                Method method = optionalMethod.get();
-                Optional<Class<?>> classOptional = Arrays.stream(method.getParameterTypes()).sorted().filter(it -> it.isInstance(param)).findFirst();
-                if (classOptional.isPresent() && ((I) o).match(param)) {
-                    return ((I) o);
+    public <I extends IStrategy> I getStrategy(Class<I> clazz, Object param) {
+        Class<?> iStrategyClass = Class.forName("com.im.core.strategy.IStrategy");
+        for (Object o :
+                this.map.values()) {
+            Class<?>[] interfaces = o.getClass().getInterfaces();
+            Optional<Class<?>> optionalClass = Arrays.stream(interfaces).filter(it -> it.getName().equals(clazz.getName())).findFirst();
+            if (optionalClass.isPresent()) {
+                Method[] methods = ReflectUtil.getMethods(o.getClass());
+                Set<Method> methodSet = Arrays.stream(methods).filter(it -> iStrategyClass.getMethods()[0].getName().equals(it.getName())).collect(Collectors.toSet());
+                if (!methodSet.isEmpty()) {
+                    for (Method method :
+                            methodSet) {
+                        Optional<Class<?>> classOptional = Arrays.stream(method.getParameterTypes())
+                                .sorted()
+                                .filter(it -> !it.getName().equals("java.lang.Object") && it.isInstance(param)).findFirst();
+                        if (classOptional.isPresent() && ((I) o).match(param)) {
+                            return ((I) o);
+                        }
+                    }
                 }
             }
         }

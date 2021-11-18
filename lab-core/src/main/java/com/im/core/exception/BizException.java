@@ -23,4 +23,5 @@ public class BizException extends RuntimeException {
 
     String code;
     String message;
+
 }
