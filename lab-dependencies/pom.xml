@@ -17,18 +17,17 @@
         <lab-version>2021.0.0-SNAPSHOT</lab-version>
         <!-- import -->
         <spring-cloud.version>2020.0.4</spring-cloud.version>
+        <spring-boot.version>2.5.6</spring-boot.version>
         <!-- core -->
         <hutool.version>5.7.16</hutool.version>
         <lombok.verison>1.18.22</lombok.verison>
         <fastjson.version>1.2.78</fastjson.version>
-        <spring-boot.version>2.5.6</spring-boot.version>
         <spring-cloud-starter.version>3.0.4</spring-cloud-starter.version>
         <httpclient.version>4.5.13</httpclient.version>
         <archunit.version>0.22.0</archunit.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <swagger-v3.version>2.1.10</swagger-v3.version>
         <swagger.version>1.6.2</swagger.version>
-        <jakarta.validation.version>3.0.1</jakarta.validation.version>
         <!-- test -->
         <junit.version>4.13.2</junit.version>
         <junit-jupiter.version>5.7.2</junit-jupiter.version>
@@ -53,11 +52,25 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>com.im</groupId>
@@ -175,11 +188,6 @@
                 <version>${mapstruct.version}</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson-bom.version}</version>
-            </dependency>
             <!-- test -->
             <dependency>
                 <groupId>junit</groupId>
@@ -198,11 +206,6 @@
                 <artifactId>junit-jupiter-engine</artifactId>
                 <version>${junit-jupiter.version}</version>
                 <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>jakarta.validation</groupId>
-                <artifactId>jakarta.validation-api</artifactId>
-                <version>${jakarta.validation.version}</version>
             </dependency>
             <!-- data-jpa -->
             <dependency>

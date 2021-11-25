@@ -10,18 +10,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>lab-autoconfig</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>com.im</groupId>
-            <artifactId>lab-web</artifactId>
-            <version>2021.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <lab-framework.version>2021.0.0-SNAPSHOT</lab-framework.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.im</groupId>
+            <artifactId>lab-web</artifactId>
+            <version>${lab-framework.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
