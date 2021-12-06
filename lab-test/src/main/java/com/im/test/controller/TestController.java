@@ -5,6 +5,7 @@ import com.im.core.validate.ValidationUtil;
 import com.im.test.model.UserValidatorModel;
 import com.im.web.OriginResponse;
 //import com.sankuai.inf.leaf.service.SnowflakeService;
+import com.sankuai.inf.leaf.service.SnowflakeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class TestController {
 
-//    private final SnowflakeService snowflakeService;
-
+    private final SnowflakeService snowflakeService;
 
     @GetMapping("test")
     public String test() {
@@ -46,9 +46,9 @@ public class TestController {
         return true;
     }
 
-//    @GetMapping("/leaf/id")
-//    public String leafId() {
-//        return Convert.toStr(snowflakeService.getId("id").getId());
-//    }
+    @GetMapping("/leaf/id")
+    public String leafId() {
+        return Convert.toStr(snowflakeService.getId("id").getId());
+    }
 
 }
