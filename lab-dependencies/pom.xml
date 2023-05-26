@@ -17,7 +17,7 @@
         <lab-version>2021.0.0-SNAPSHOT</lab-version>
         <!-- import -->
         <spring-cloud.version>2020.0.4</spring-cloud.version>
-        <spring-boot.version>2.5.6</spring-boot.version>
+        <spring-boot.version>2.5.15</spring-boot.version>
         <!-- core -->
         <hutool.version>5.7.16</hutool.version>
         <lombok.verison>1.18.22</lombok.verison>
