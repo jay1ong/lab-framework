@@ -34,7 +34,7 @@
         <!-- data-jpa -->
         <querydsl.version>5.0.0</querydsl.version>
         <hibernate-types-55.version>2.14.0</hibernate-types-55.version>
-        <postgresql.version>42.2.24</postgresql.version>
+        <postgresql.version>42.7.11</postgresql.version>
         <jakarta.persistence-api.version>2.2.3</jakarta.persistence-api.version>
         <javax.persistence-api.version>2.2</javax.persistence-api.version>
         <spring-data-jpa-entity-graph.version>2.5.0</spring-data-jpa-entity-graph.version>
